@@ -1,12 +1,12 @@
-const chromium = require('@sparticuz/chromium-min');
-const puppeteer = require('puppeteer-core');
+import chromium from '@sparticuz/chromium-min';
+import puppeteer from 'puppeteer-core';
 
 // نسخة Chromium محسّنة لبيئة Serverless — بتتنزل وقت التشغيل، مش جزء من حجم الكود
 // لازم رقم الإصدار هنا يطابق بالظبط رقم @sparticuz/chromium-min في package.json (الباقة دي مش بتتبع semver عادي)
 const CHROMIUM_PACK_URL =
   'https://github.com/Sparticuz/chromium/releases/download/v153.0.0/chromium-v153.0.0-pack.x64.tar';
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
     return;
@@ -50,4 +50,4 @@ module.exports = async (req, res) => {
   } finally {
     if (browser) await browser.close();
   }
-};
+}

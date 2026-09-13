@@ -2,6 +2,7 @@
   "name": "arkan-renderer",
   "version": "2.0.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@sparticuz/chromium-min": "153.0.0",
     "puppeteer-core": "^25.10.0"
