@@ -2,8 +2,9 @@ const chromium = require('@sparticuz/chromium-min');
 const puppeteer = require('puppeteer-core');
 
 // نسخة Chromium محسّنة لبيئة Serverless — بتتنزل وقت التشغيل، مش جزء من حجم الكود
+// لازم رقم الإصدار هنا يطابق بالظبط رقم @sparticuz/chromium-min في package.json (الباقة دي مش بتتبع semver عادي)
 const CHROMIUM_PACK_URL =
-  'https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar';
+  'https://github.com/Sparticuz/chromium/releases/download/v153.0.0/chromium-v153.0.0-pack.x64.tar';
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -29,9 +30,9 @@ module.exports = async (req, res) => {
     const executablePath = await chromium.executablePath(CHROMIUM_PACK_URL);
 
     browser = await puppeteer.launch({
-      args: chromium.args,
+      args: await puppeteer.defaultArgs({ args: chromium.args, headless: 'shell' }),
       executablePath,
-      headless: chromium.headless,
+      headless: 'shell',
     });
 
     const page = await browser.newPage();
